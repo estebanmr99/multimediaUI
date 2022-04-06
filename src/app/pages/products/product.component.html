@@ -1,0 +1,344 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="col-12">
+        <div class="card mb-4 mb-xl-3 d-flex flex-row py-4">
+          <div class="col-2">
+            <div class="d-inline-block">
+              <mat-form-field appearance="fill">
+                <mat-label>Categorias</mat-label>
+                <mat-select [formControl]="categories" multiple>
+                  <mat-select-trigger>
+                    {{ categories.value ? categories.value[0] : "" }}
+                    <span
+                      *ngIf="categories.value?.length > 1"
+                      class="example-additional-selection"
+                    >
+                      (+{{ categories.value.length - 1 }}
+                      {{ categories.value?.length === 2 ? "other" : "others" }})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option
+                    *ngFor="let categorie of categoriesList"
+                    [value]="categorie.nombre"
+                    >{{ categorie.nombre }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-dm-1 d-flex flex-column">
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto mb-1"
+              type="button"
+              (click)="onCategorie('agregar')"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+              <span class="btn-inner--text">Agregar</span>
+            </button>
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto my-2"
+              type="button"
+              (click)="onCategorie('quitar')"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-delete"></i></span>
+              <span class="btn-inner--text">Eliminar</span>
+            </button>
+          </div>
+          <div class="col-2">
+            <div class="d-inline-block">
+              <mat-form-field appearance="fill">
+                <mat-label>Caracteristicas</mat-label>
+                <mat-select [formControl]="features" multiple>
+                  <mat-select-trigger>
+                    {{ features.value ? features.value[0] : "" }}
+                    <span
+                      *ngIf="features.value?.length > 1"
+                      class="example-additional-selection"
+                    >
+                      (+{{ features.value.length - 1 }}
+                      {{ features.value?.length === 2 ? "other" : "others" }})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option
+                    *ngFor="let feature of featuresList"
+                    [value]="feature.nombre"
+                    >{{ feature.nombre }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-dm-1 d-flex flex-column">
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto mb-1"
+              type="button"
+              (click)="onFeature('agregar')"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+              <span class="btn-inner--text">Agregar</span>
+            </button>
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto my-2"
+              type="button"
+              (click)="onFeature('quitar')"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-delete"></i></span>
+              <span class="btn-inner--text">Eliminar</span>
+            </button>
+          </div>
+          <div class="col-2">
+            <div class="d-inline-block">
+              <mat-form-field appearance="fill">
+                <mat-label>Cuidados</mat-label>
+                <mat-select [formControl]="cares" multiple>
+                  <mat-select-trigger>
+                    {{ cares.value ? cares.value[0] : "" }}
+                    <span
+                      *ngIf="cares.value?.length > 1"
+                      class="example-additional-selection"
+                    >
+                      (+{{ cares.value.length - 1 }}
+                      {{ cares.value?.length === 2 ? "other" : "others" }})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option
+                    *ngFor="let care of caresList"
+                    [value]="care.descripcion"
+                    >{{ care.descripcion }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-dm-1 d-flex flex-column">
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto mb-1"
+              type="button"
+              (click)="onCare('agregar')"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+              <span class="btn-inner--text">Agregar</span>
+            </button>
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto my-2"
+              type="button"
+              (click)="onCare('quitar')"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-delete"></i></span>
+              <span class="btn-inner--text">Eliminar</span>
+            </button>
+          </div>
+          <div class="col-2 d-flex flex-column">
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto mb-1"
+              type="button"
+              (click)="openDialog('Agregar', 'product', {})"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+              <span class="btn-inner--text">Agregar producto</span>
+            </button>
+            <button
+              class="btn btn-icon btn-2 btn-primary mr-auto my-2"
+              type="button"
+              (click)="onDelete('Eliminar', 'product')"
+            >
+              <span class="btn-inner--icon"><i class="ni ni-fat-delete"></i></span>
+              <span class="btn-inner--text">Eliminar producto</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Filtrado-->
+<div class="acordions card-remove">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="showPanel" hideToggle>
+        <mat-panel-title>
+          <button mat-stroked-button color="primary">
+            Mostrar/Ocultar Filtros
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="mb-4 mb-xl-0 d-flex flex-row py-3 h-100">
+        <div class="col-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Categorias</mat-label>
+            <mat-select [formControl]="categoriesFilter" multiple>
+              <mat-select-trigger>
+                {{ categoriesFilter.value ? categoriesFilter.value[0] : "" }}
+                <span
+                  *ngIf="categoriesFilter.value?.length > 1"
+                  class="example-additional-selection"
+                >
+                  (+{{ categoriesFilter.value.length - 1 }}
+                  {{ categoriesFilter.value?.length === 2 ? "other" : "others" }})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let categorie of categoriesFilterList" [value]="categorie.nombre">
+                {{categorie.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Caracteristicas</mat-label>
+            <mat-select [formControl]="featuresFilter" multiple>
+              <mat-select-trigger>
+                {{ featuresFilter.value ? featuresFilter.value[0] : "" }}
+                <span
+                  *ngIf="featuresFilter.value?.length > 1"
+                  class="example-additional-selection"
+                >
+                  (+{{ featuresFilter.value.length - 1 }}
+                  {{ featuresFilter.value?.length === 2 ? "other" : "others" }})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let feature of featuresFilterList" [value]="feature.nombre">
+                {{feature.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Cuidados</mat-label>
+            <mat-select [formControl]="caresFilter" multiple>
+              <mat-select-trigger>
+                {{ caresFilter.value ? caresFilter.value[0] : "" }}
+                <span
+                  *ngIf="caresFilter.value?.length > 1"
+                  class="example-additional-selection"
+                >
+                  (+{{ caresFilter.value.length - 1 }}
+                  {{ caresFilter.value?.length === 2 ? "other" : "others" }})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let care of caresFilterList" [value]="care.descripcion">
+                {{care.descripcion}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-2 d-flex flex-column bg-transparent">
+          <button
+            class="btn btn-icon btn-3 btn-primary mr-auto mb-2"
+            type="button"
+            (click)="filterProducts()"
+          >
+            <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+            <span class="btn-inner--text">Filtrar</span>
+          </button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<!-- Page content -->
+
+
+<div class="container-fluid mt--7 table" >
+
+  <div class="card shadow">
+    <div class="card-header border-0">
+      <h3 class="mb-0">Tabla de productos
+
+      </h3>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+    <ng-container matColumnDef="select">
+      <th class="thead-light th " mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td class="td" mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+
+      </td>
+    </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th class="thead-light  th " mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="media-body">
+
+          <span class="mb-0 text-sm">{{element.nombre}}</span>
+        </div>
+    </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="price">
+      <th  class="thead-light th " mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+      <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th  class="thead-light th  " mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="media-body">
+
+        <span>{{element.cantidad}} </span>
+        <div ngbDropdown placement="bottom-right" class="editButton" >
+          <a
+            class="btn btn-sm btn-icon-only text-light"
+            ngbDropdownToggle
+          >
+            <i class="fas fa-ellipsis-v"></i>
+          </a>
+          <div
+            ngbDropdownMenu
+            class="dropdown-menu-right dropdown-menu-arrow"
+          >
+            <a class="dropdown-item" href="javascript:void(0)" (click)="openDialog('Editar', 'product', element)"
+              >Editar</a
+            >
+            <a class="dropdown-item" href="javascript:void(0)" [routerLink] ="['/product-profile', element.id]"
+            >Ver Producto</a
+          >
+          </div>
+        </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr  class="thead-light " mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator hidePageSize="true"  MatFormFieldAppearance = "fill" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>
+
+<!--pie de pagina-->
+<!-- <div class="uploaderPanel card-remove">
+  <mat-accordion class="matAcordion">
+    <mat-expansion-panel class="matAcordion">
+      <mat-expansion-panel-header class="showPanel" hideToggle>
+        <mat-panel-title>
+          <button mat-fab color="primary">
+            <mat-icon>attach_file</mat-icon>
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="mb-4 mb-xl-0 d-flex flex-row py-3 h-100">
+        <div class="d-flex flex-column bg-transparent">
+          <form [formGroup]="form" (ngSubmit)="submitForm()">
+            <div class="form-group">
+                <input type="file" (change)="uploadFile($event)">
+            </div>
+            <div class="form-group">
+              <button mat-stroked-button color="primary">Importar</button>
+
+            </div>
+        </form>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div> -->

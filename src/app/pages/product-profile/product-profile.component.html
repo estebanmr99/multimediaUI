@@ -1,0 +1,124 @@
+<div
+  class="header pb-5 pt-5 pt-lg-5 d-flex align-items-center"
+  style="
+    min-height: 300px;
+    background-size: cover;
+    background-position: center top;
+  "
+>
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid w-100 d-flex align-items-center">
+
+      <div class="col-lg-7 col-md-10 p-0">
+        <h1 class="display-2 text-white"> {{productProfile.nombre}} </h1>
+        <a  class="btn btn-info"
+        (click)="openDialog('Editar', 'product', productProfile)">
+        Editar perfil</a>
+      </div>
+
+  </div>
+</div>
+
+<div>
+  <div class="acordions card-remove">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="showPanel" hideToggle>
+          <mat-panel-title>
+            <button mat-stroked-button color="primary">
+              Mostrar/Ocultar Attributos Externos
+            </button>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="mb-4 mb-xl-0 d-flex flex-row py-3 h-100">
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Categorias</mat-label>
+              <mat-select [formControl]="categories">
+                <mat-option *ngFor="let categorie of productCategories" [value]="categorie.nombre">{{
+                  categorie.nombre
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Caracteristicas</mat-label>
+              <mat-select [formControl]="features">
+                <mat-option *ngFor="let feature of productFeatures" [value]="feature.nombre">{{
+                  feature.nombre
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Cuidados</mat-label>
+              <mat-select [formControl]="cares">
+                <mat-option *ngFor="let care of productCares" [value]="care.descripcion">{{
+                  care.descripcion
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="row" style="margin-top: 2rem">
+    <div class="col-9 order-3" style="padding-right: 0  !important; right: -3rem; padding-left: 0 !important; width: 105%;  ">
+      <div class="container-fluid mt-3" style="padding-left: 0  !important; width: 100%; ">
+        <!-- Table -->
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h3 class="mb-0">Imagen de producto</h3>
+            <img id="preview" [src]="productProfile.imageBase64">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-2 order-xl-2 mb-5 mb-xl-0" style="left: 1rem">
+      <div class="card card-profile shadow">
+        <h1 class="text-center">Atributos</h1>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center usernameBox">
+            <div class="row">
+              <div class="col-5">
+                <p>Precio</p>
+              </div>
+              <div class="col-6 userName">
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="model"
+                  disabled= "{{editProduct}}"
+                  value = "{{productProfile.precio}}"
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-5">
+                <p>Cantidad</p>
+              </div>
+              <div class="col-6 userName">
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="model"
+                  disabled= "{{editProduct}}"
+                  value = "{{productProfile.cantidad}}"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
