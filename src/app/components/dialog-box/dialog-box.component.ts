@@ -14,6 +14,7 @@ export class DialogBoxComponent {
   page: string;
   local_data: any;
   imgByteArray: string;
+  canClose: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
@@ -28,6 +29,7 @@ export class DialogBoxComponent {
     this.action = this.data.action;
     this.page = this.data.page;
     this.imgByteArray = '';
+    this.canClose = false;
   }
 
   uploadFile(event) {
@@ -48,7 +50,9 @@ export class DialogBoxComponent {
   doAction(){
     this.local_data.image = this.imgByteArray;
     console.log(this.local_data);
+    this.canClose = false;
     this.dialogRef.close({event:this.action,data:this.local_data});
+    this.canClose = true;
   }
 
   closeDialog(){

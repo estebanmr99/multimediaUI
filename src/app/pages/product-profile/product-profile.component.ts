@@ -7,13 +7,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { StudentsService } from 'src/app/services/students.service';
 import { DialogBoxComponent } from 'src/app/components/dialog-box/dialog-box.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LabelsService } from 'src/app/services/labels.service';
-import { AttributesService } from "src/app/services/attributes.service";
 import { ProductsService } from "src/app/services/products.service";
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @NgModule({
   imports: [MaterialModule],
